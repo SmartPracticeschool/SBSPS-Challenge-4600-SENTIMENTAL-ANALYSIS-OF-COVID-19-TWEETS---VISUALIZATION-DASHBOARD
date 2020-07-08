@@ -1,0 +1,31 @@
+#import libraries
+import tweepy
+from textblob import TextBlob
+from wordcloud import WordCloud
+import pandas as pd
+import numpy as np
+import re
+import matplotlib.pyplot as plt
+import csv
+plt.style.use('fivethirtyeight')
+consumerKey = input("Enter consumerkey")
+consumerSecret = input("Enter consumersecret key")
+accessToken = input("Enter accesstoken")
+accessTokenSecret = input("Enter accesstoken secret")
+authenticate = tweepy.OAuthHandler(consumerKey, consumerSecret) 
+authenticate.set_access_token(accessToken, accessTokenSecret) 
+api = tweepy.API(authenticate, wait_on_rate_limit = True)
+posts = api.search(q = input("Enter the hashtag please"), count = 100, lang ="en", tweet_mode="extended")
+
+#  Print the last 5 tweets
+#print("Show the 5 recent tweets:\n")
+i=1
+for tweet in posts[:5]:
+   #print(str(i) +') '+ tweet.full_text + '\n')
+   i= i+1
+#print(posts)
+df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
+# Show the first 5 rows of data
+
+df.drop_duplicates(["Tweets"])    # clears all duplicate tweets
+df.head()
