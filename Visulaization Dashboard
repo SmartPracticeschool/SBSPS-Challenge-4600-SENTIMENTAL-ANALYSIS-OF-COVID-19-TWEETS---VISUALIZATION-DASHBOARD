@@ -1,0 +1,21 @@
+#Visualization bash board
+positweets = df[df.Analysis == 'Positive']
+positweets = positweets['Tweets']
+positweetspercent = round((positweets.shape[0]/df.shape[0])*100,1)
+#positweetspercent
+negatitweets = df[df.Analysis == 'Negative']
+negatitweets = negatitweets['Tweets']
+negatitweetspercent = round((negatitweets.shape[0]/df.shape[0])*100,1)
+
+neutraltweets = df[df.Analysis == 'Neutral']
+neutraltweets = neutraltweets['Tweets']
+neutraltweetspercent = round((neutraltweets.shape[0]/df.shape[0])*100,1)
+
+#df['Analysis'].value_counts()
+
+plt.title('SENTIMENT ANALYSIS DASHBOARD')
+#df['Analysis'].value_counts().plot(kind = 'pie')
+plt.xlabel('Polarity')
+plt.ylabel('Percent')
+df['Analysis'].value_counts().plot(kind = 'bar')
+plt.show()
