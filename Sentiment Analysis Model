@@ -1,0 +1,19 @@
+# This model is build with help of a library called as TextBlob 
+def Subjectivecontent(text):
+  return TextBlob(text).sentiment.subjectivity
+def Polaritycontent(text):
+  return TextBlob(text).sentiment.polarity
+def getAnalysis(score):
+  if score < 0 :
+    return 'Negative'
+  elif score == 0 :
+    return 'Neutral'
+  else :
+    return 'Positive'
+# subjectivity of tweets
+df['subject'] = df['Tweets'].apply(Subjectivecontent)
+# polarity of tweets
+df['polarity_tweet'] = df['Tweets'].apply(Polaritycontent)
+# Analysing Tweets
+df['Analysis'] = df['polarity_tweet'].apply(getAnalysis)
+#df.head()
