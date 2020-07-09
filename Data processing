@@ -1,0 +1,16 @@
+# after collecting data it is mandatory to clean up the raw data collected from twitter to get efficient result.
+import re
+import pandas as pd
+# here regular expression is used to remove @,#,http etc.
+def cleanTxt(text):
+  text = re.sub('@[A-Za-z0-9]+','',text)
+  text = re.sub('#','',text)
+  text = re.sub('RT[\S]+','',text)
+  text = re.sub('http?:\/\/\S+','',text)
+  return (text)
+  df = pd.DataFrame([tweet.full_text for tweet in posts], columns=['Tweets'])
+
+df.drop_duplicates(["Tweets"]) # it is used to remove duplicates
+
+df['Tweets'] = df['Tweets'].apply(cleanTxt)
+df.head()
